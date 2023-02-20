@@ -2,7 +2,8 @@
   "dependencies": {
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "jwt-decode": "^3.1.2"
   },
   "name": "fleet-node-api",
   "version": "1.0.0",
@@ -10,7 +11,7 @@
   "scripts": {
     "watch": "tsc -w",
     "start-dev": "cross-env PLATFORM=dev nodemon build/server.js",
-    "start-prod":"cross-env PLATFORM=prod node build/server.js"
+    "start-prod": "cross-env PLATFORM=prod node build/server.js"
   },
   "repository": {
     "type": "git",
