@@ -1,1 +1,2 @@
-export {configEnvs} from './env-config'
+export {envs} from './env-config'
+export {app} from './express'
