@@ -6,4 +6,7 @@ server.listen(envs.port)
 server.on('listening', () => {
     Connect()
     // RedisClient().connect();
+    
+    console.log("port running");
+    
   });
