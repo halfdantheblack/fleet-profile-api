@@ -4,9 +4,8 @@ import jwt from 'jsonwebtoken';
 import { Schema, model, Types, Model, Models } from 'mongoose'
 import { IUser } from "../../interfaces";
 import { roles } from "../roles/rolesModel";
-import moment from "moment";
 import { envs } from "../../../config";
-
+import moment from 'moment'
 
 const jwtSecret:any = envs.jwtSecret
 
@@ -91,4 +90,4 @@ UserModel.statics = {
 
 
 
-export const User:any = model('User', UserModel);
+export const User = model<IUser>('User', UserModel);
