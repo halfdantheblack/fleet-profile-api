@@ -1,4 +1,5 @@
-import { Request,Response } from "express"
+import { NextFunction, Request,Response } from "express"
+import APIError from "../../../utils/APIError"
 import { UserService } from "../../services"
 
 
@@ -6,6 +7,7 @@ import { UserService } from "../../services"
 export const getUsers = async (req:Request,res:Response)=>{
     res.json({"Users":await UserService.get(), success: 'SUCCESS'}).status(200)
 }
+<<<<<<< HEAD
 export const createUser = async (req:Request,res:Response)=>{
     res.json({"message":await UserService.createUser(req.body), success: 'SUCCESS'}).status(200)
 }
@@ -21,3 +23,13 @@ export const deleteUser = async (req:Request,res:Response)=>{
     res.json({"message":await UserService.deleteUser(req.params.id)}).status(200)
 }
 
+=======
+export const createUser = async (req:Request,res:Response,next:any)=>{
+    try {
+        res.json({"message":await UserService.createUser(req.body), success: 'SUCCESS'}).status(200)
+
+    } catch (error) {
+        return next(error)
+    }
+}
+>>>>>>> 8-common-error-module

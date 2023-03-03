@@ -45,10 +45,10 @@ PasswordModel.pre("save", async function save(next: any) {
 });
 
 PasswordModel.method({
-  async matchPassword(password: string, fetchedPassword: string) {
-    try {
-      return bcrypt.compare(password, fetchedPassword);
-    } catch (error) {}
+  async matchPassword(this: { password: string }, password: string) {
+  
+      return bcrypt.compare(password, this.password);
+
   },
 });
 

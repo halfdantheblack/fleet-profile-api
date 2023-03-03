@@ -5,7 +5,13 @@ import { Schema, model, Types, Model, Models } from 'mongoose'
 import { IUser } from "../../interfaces";
 import { roles } from "../roles/rolesModel";
 import { envs } from "../../../config";
+<<<<<<< HEAD
 import moment from 'moment'
+=======
+import APIError from "../../../utils/APIError";
+import { constants } from "../../../utils/constants";
+
+>>>>>>> 8-common-error-module
 
 const jwtSecret:any = envs.jwtSecret
 
@@ -75,14 +81,36 @@ UserModel.statics = {
     const user = await this.findOne({ user_name: user_name }).exec()
     
     if (!user) {
-      // throw ({ message: INVALID_CREDENTIALS, status: UNAUTHORIZED });
-      console.log("INVALID USER");
-      return 
+      throw new APIError({ message: constants.INVALID_CREDENTIALS, status: constants.UNAUTHORIZED });
     }
     const pass = await getByPasswordByUser(user._id);
+    if (!await pass.matchPassword(password)) {
+      
+      throw new APIError({message: constants.INVALID_CREDENTIALS, status: constants.UNAUTHORIZED})
+    }
     
     return {user: user,accessToken: await user.token()};
   
+  },
+  checkDuplication(error) {
+    if (error.code === 11000 || (error.name === 'BulkWriteError' || error.name === 'MongoError')) {
+      const keys = Object.keys(error.keyPattern);
+      if (keys.includes('user_name')) {
+        return new APIError({ message: 'user name already exist', status: constants.NOT_FOUND });
+      }
+      if (keys.includes('email')) {
+        return new APIError({
+          message: constants.EMAIL_EXIST,
+          status: constants.BAD_REQUEST,
+          errors: [{
+            field: 'email',
+            location: 'body',
+            messages: 'Email is already in use',
+          }],
+        });
+      }
+    }
+    return error;
   },
 }
 
