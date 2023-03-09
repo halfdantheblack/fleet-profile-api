@@ -1,8 +1,15 @@
 {
   "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.1",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "express-validator": "^6.15.0",
+    "jsonwebtoken": "^9.0.0",
+    "moment": "^2.29.4",
+    "mongoose": "^6.9.2",
+    "node": "^16.19.0"
   },
   "name": "fleet-node-api",
   "version": "1.0.0",
@@ -10,7 +17,7 @@
   "scripts": {
     "watch": "tsc -w",
     "start-dev": "cross-env PLATFORM=dev nodemon build/server.js",
-    "start-prod":"cross-env PLATFORM=prod node build/server.js"
+    "start-prod": "cross-env PLATFORM=prod node build/server.js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +32,9 @@
   "homepage": "https://github.com/halfdantheblack/fleet-node-api#readme",
   "description": "",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.1",
     "@types/node": "^18.13.0",
     "nodemon": "^2.0.20"
   }
