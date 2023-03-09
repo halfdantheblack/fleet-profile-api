@@ -6,12 +6,19 @@ export async function get():Promise<any[]>{
     return await User.find()
 }
 export async function createUser( data:any):Promise<any>{
-    const user = new User(data);
-    const save = await user.save()
-    const pass= await generatePassword(12)
-    const password = new Password({userId:save._id,password:pass})
-    
-    
-    const savePass= password.save()
-    return user;
+    try{
+        const user = new User(data);
+        const save = await user.save()
+        const pass= await generatePassword(12)
+        console.log(pass);
+        
+        const password = new Password({userId:save._id,password:pass})
+        
+        
+        const savePass= password.save()
+        return user;
+    } catch (err){
+        throw User.checkDuplication(err)
+    }
+
 }
